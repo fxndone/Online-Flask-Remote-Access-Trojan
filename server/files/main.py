@@ -39,7 +39,7 @@ def not_found(*_):
 def set_inactive(ip):
     global INFOS
     sleep(DELAY)
-    INFOS[ip] = '0'
+    INFOS[ip][0] = '0'
 
 def is_ip(ip):
     ip = gethostbyname(ip)
@@ -62,9 +62,9 @@ def get_infos():
     
     if request.method == "GET":
         if not ip in INFOS:
-            INFOS[ip] = '0'
-        if INFOS[ip] == '0':
-            INFOS[ip] = '1'
+            INFOS[ip] = ['0', "Hostname not provided"]
+        if INFOS[ip][0] == '0':
+            INFOS[ip][0] = '1'
             Thread(target=set_inactive, args=(ip,), daemon=True).start()
         if ip in REQUESTS.keys():
             data = REQUESTS[ip]
@@ -78,9 +78,9 @@ def get_infos():
                 return INFOS
             else:
                 if not ip in INFOS:
-                    INFOS[ip] = '0'
-                if INFOS[ip] == '0':
-                    INFOS[ip] = '1'
+                    INFOS[ip] = ['0', "Hostname not provided"]
+                if INFOS[ip][0] == '0':
+                    INFOS[ip][0] = '1'
                     Thread(target=set_inactive, args=(ip,), daemon=True).start()
                 if ip in REQUESTS.keys():
                     data = REQUESTS[ip]
@@ -90,9 +90,9 @@ def get_infos():
                     return "null"
         else:
             if not ip in INFOS:
-                INFOS[ip] = '0'
-            if INFOS[ip] == '0':
-                INFOS[ip] = '1'
+                INFOS[ip] = ['0', "Hostname not provided"]
+            if INFOS[ip][0] == '0':
+                INFOS[ip][0] = '1'
                 Thread(target=set_inactive, args=(ip,), daemon=True).start()
             if ip in REQUESTS.keys():
                 data = REQUESTS[ip]
@@ -121,6 +121,24 @@ def set_infos():
             return "null"
         REQUESTS[target] = host
         return 'null'
+
+@app.route("/api/set_hostname", methods=["POST"])
+def set_hostname():
+    if request.form.get("hostname") is None:
+        abort(404)
+    else:
+        ip = None
+        if request.headers.get("X-Forwarded-For") is not None:
+            ip = request.headers.get("X-Forwarded-For").split(",")[0]
+        else:
+            ip = request.remote_addr
+
+        if not ip in INFOS:
+            abort(404)
+        else:
+            INFOS[ip][1] = request.form.get("hostname")
+            return 'null'
+
 
 def main():
     try:
