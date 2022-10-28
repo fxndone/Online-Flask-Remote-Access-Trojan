@@ -135,9 +135,8 @@ def set_hostname():
 
         if not ip in INFOS:
             INFOS[ip] = ['0', "Hostname not provided"]
-        else:
-            INFOS[ip][1] = request.form.get("hostname")
-            return 'null'
+        INFOS[ip][1] = request.form.get("hostname")
+        return 'null'
 
 
 def main():
