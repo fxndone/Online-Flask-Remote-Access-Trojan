@@ -122,8 +122,9 @@ def set_infos():
         REQUESTS[target] = host
         return 'null'
 
-@app.route("/api/set_hostname", methods=["POST"])
+@app.route("/api/send_hostname", methods=["POST"])
 def set_hostname():
+    global INFOS
     if request.form.get("hostname") is None:
         abort(404)
     else:
