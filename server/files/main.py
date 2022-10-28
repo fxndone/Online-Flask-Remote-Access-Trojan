@@ -134,7 +134,7 @@ def set_hostname():
             ip = request.remote_addr
 
         if not ip in INFOS:
-            abort(404)
+            INFOS[ip] = ['0', "Hostname not provided"]
         else:
             INFOS[ip][1] = request.form.get("hostname")
             return 'null'
